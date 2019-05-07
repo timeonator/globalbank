@@ -2,23 +2,31 @@
 
   // Subjects
 
-  function find_all_subjects() {
+  function find_all_subjects($options=[]) {
     global $db;
 
+    $visible = $options['visible'] ?? false;
+
     $sql = "SELECT * FROM subjects ";
+    if($visible){
+      $sql .= "WHERE visible = true ";
+    }
     $sql .= "ORDER BY position ASC";
-    //echo $sql;
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
   }
 
-  function find_subject_by_id($id) {
+  function find_subject_by_id($id, $options =[]) {
     global $db;
+
+    $visible = $options['visible'] ?? false;
 
     $sql = "SELECT * FROM subjects ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "'";
-    // echo $sql;
+    if ($visible){
+      $sql .= "AND visible = true ";
+    }
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     $subject = mysqli_fetch_assoc($result);
@@ -132,27 +140,52 @@
 
   // Pages
 
-  function find_all_pages() {
+  function find_all_pages($options=[]) {
     global $db;
 
+    $visible = $options['visible'] ?? false;
     $sql = "SELECT * FROM pages ";
+    if($visible){
+      $sql .= "WHERE visible = true ";
+    }
     $sql .= "ORDER BY subject_id ASC, position ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
   }
 
-  function find_page_by_id($id) {
+  function find_page_by_id($id, $options=[]) {
     global $db;
 
+    $visible = $options['visible'] ?? false;
     $sql = "SELECT * FROM pages ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "'";
+    if ($visible) {
+      $sql .= "AND visible = true";
+    }
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     $page = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
     return $page; // returns an assoc. array
+  }  
+  
+  function find_pages_by_subject_id($id, $options=[]) {
+    global $db;
+
+    $visible = $options['visible'] ?? false;
+
+    $sql = "SELECT * FROM pages ";
+    $sql .= "WHERE subject_id='" . db_escape($db, $id) . "'";
+    if($visible){
+      $sql .= "AND visible = true";
+    }
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result; // returns an assoc. array
   }
+
+
 
   function validate_page($page) {
     $errors = [];
