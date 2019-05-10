@@ -5,24 +5,24 @@ require_once('../../../private/initialize.php');
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/staff/admins/index.php'));
 }
+
 $id = $_GET['id'] ?? '';
-$admin['id']=$id;
 
 if(is_post_request()) {
-
   $admin = [];
+  $admin['id']=$id;
   $admin['first_name'] = $_POST['first_name'] ?? '';
   $admin['last_name'] = $_POST['last_name'] ?? '';
   $admin['email'] = $_POST['email'] ?? '';
   $admin['username'] = $_POST['username'] ?? '';
-  $admin['password'] = $_POST['password'] ?? '';
+  $admin['hashed_password'] = $_POST['hashed_password'] ?? '';
 
   $result = update_admin($admin);
   if($result === true) {
-    redirect_to(url_for('/staff/admins/show.php?id=' . $id));
+    $_SESSION['message'] =  "Admin updated successfully.";  
+ //   redirect_to(url_for('/staff/admins/show.php?id=' . $id));
   } else {
     $errors = $result;
-    //var_dump($errors);
   }
 
 } else {
@@ -67,12 +67,7 @@ mysqli_free_result($admin_set);
         <dd><input type="text" name="username" value="<?php echo $admin['username']; ?>" /></dd>
       </dl>
       <dl>
-        <dt>Password</dt>
-        <dd><input type="text" name="password" value="<?php echo $admin['password']; ?>" /></dd>
-      </dl>
-      <dt>Password</dt>
-        <dd><input type="text" name="password_repeat" value="<?php echo $admin['password_repeat']; ?>" /></dd>
-      </dl>
+
       <div id="operations">
         <input type="submit" value="Edit admin" />
       </div>

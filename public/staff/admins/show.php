@@ -14,6 +14,7 @@ $admin = find_admin_by_id($id);
 
   <a class="back-link" href="<?php echo url_for('/staff/admins/index.php'); ?>">&laquo; Back to List</a>
 
+
   <div class="admin show">
 
     <h1>admin: <?php echo 'Admins' ?></h1>
@@ -36,7 +37,7 @@ $admin = find_admin_by_id($id);
         <dd><?php echo h($admin['username']); ?></dd>
       </dl>
       <dl>
-        <dt>Passwrod</dt>
+        <dt>Passwword</dt>
         <dd><?php echo h($admin['hashed_password']); ?></dd>
       </dl>
     </div>

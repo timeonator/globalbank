@@ -10,11 +10,12 @@ if(is_post_request()) {
   $admin['email'] = $_POST['email'] ?? '';
   $admin['username'] = $_POST['username'] ?? '';
   $admin['password'] = $_POST['password'] ?? '';
-
+  $admin['password_repeat'] =  $_POST['password_repeat'] ?? '';
 
   $result = insert_admin($admin);
   if($result === true) {
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = "New admin was successfully added.";
     redirect_to(url_for('/staff/admins/show.php?id=' . $new_id));
   } else {
     $errors = $result;
@@ -66,10 +67,10 @@ if(is_post_request()) {
       </dl>
       <dl>
         <dt>Password</dt>
-        <dd><input type="text" name="password" value="<?php echo $admin['password']; ?>" /></dd>
+        <dd><input type="password" name="password" value="<?php echo $admin['password']; ?>" /></dd>
       </dl>
       <dt>Password</dt>
-        <dd><input type="text" name="password_repeat" value="<?php echo $admin['password_repeat']; ?>" /></dd>
+        <dd><input type="password" name="password_repeat" value="<?php echo $admin['password_repeat']; ?>" /></dd>
       </dl>
 
       <div id="operations">
