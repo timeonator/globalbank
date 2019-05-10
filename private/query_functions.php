@@ -78,9 +78,9 @@
         $errors[] = "Password must contain at least 1 symbol";
       }
 
-      if(is_blank($admin['password_repeat'])) {
+      if(is_blank($admin['confirm_passward'])) {
         $errors[] = "Confirm password cannot be blank.";
-      } elseif ($admin['password'] !== $admin['password_repeat']) {
+      } elseif ($admin['password'] !== $admin['confirm_passward']) {
         $errors[] = "Password and confirm password must match.";
       }
     }

@@ -10,7 +10,7 @@ if(is_post_request()) {
   $admin['email'] = $_POST['email'] ?? '';
   $admin['username'] = $_POST['username'] ?? '';
   $admin['password'] = $_POST['password'] ?? '';
-  $admin['password_repeat'] =  $_POST['password_repeat'] ?? '';
+  $admin['confirm_passward'] =  $_POST['confirm_passward'] ?? '';
 
   $result = insert_admin($admin);
   if($result === true) {
@@ -29,7 +29,7 @@ if(is_post_request()) {
   $admin['email'] =  '';
   $admin['username'] =  '';
   $admin['password'] =  '';
-  $admin['password_repeat'] =  '';
+  $admin['confirm_passward'] =  '';
 }
 
 
@@ -70,7 +70,7 @@ if(is_post_request()) {
         <dd><input type="password" name="password" value="<?php echo $admin['password']; ?>" /></dd>
       </dl>
       <dt>Password</dt>
-        <dd><input type="password" name="password_repeat" value="<?php echo $admin['password_repeat']; ?>" /></dd>
+        <dd><input type="password" name="confirm_passward" value="<?php echo $admin['confirm_passward']; ?>" /></dd>
       </dl>
 
       <div id="operations">
