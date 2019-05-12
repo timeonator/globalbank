@@ -23,7 +23,7 @@ if(is_post_request()) {
   if(empty($errors)) {
     // Using one variable ensures that msg is the same
     $login_failure_msg = "Log in was unsuccessful.";
-/*
+
     $admin = find_admin_by_username($username);
     if($admin) {
 
@@ -40,7 +40,7 @@ if(is_post_request()) {
       // no username found
       $errors[] = $login_failure_msg;
     }
-*/
+
   }
 
 }

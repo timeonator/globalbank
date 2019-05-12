@@ -30,6 +30,40 @@
     return $admin; // returns an assoc. array
   }
 
+  function find_admin_by_username($username, $options =[]) {
+    global $db;
+
+    $visible = $options['visible'] ?? false;
+
+    $sql = "SELECT * FROM admins ";
+    $sql .= "WHERE username='" . db_escape($db, $username) . "'";
+    if ($visible){
+      $sql .= "AND visible = true ";
+    }
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $admin = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    return $admin; // returns an assoc. array
+  }
+
+  function find_admin_by_email($email, $options =[]) {
+    global $db;
+
+    $visible = $options['visible'] ?? false;
+
+    $sql = "SELECT * FROM admins ";
+    $sql .= "WHERE username='" . db_escape($db, $email) . "'";
+    if ($visible){
+      $sql .= "AND visible = true ";
+    }
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $admin = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    return $admin; // returns an assoc. array
+  }
+
   function validate_admin($admin, $options=[]) {
 
     $type = $options['type'] ?? '';
